@@ -6,10 +6,6 @@ package repository
 
 import "context"
 
-//go:generate mockgen --build_flags=--mod=mod -destination=interfaces.mock.gen.go -package=repository . RepositoryInterface
 type RepositoryInterface interface {
-	GetEstateByID(ctx context.Context, id string) (estate Estate, err error)
-	CreateEstate(ctx context.Context, length int, width int) (id string, err error)
-	CreateTree(ctx context.Context, estateID string, tree Tree) (id string, err error)
-	GetTree(ctx context.Context, estateID string) (tree []Tree, err error)
+	GetTestById(ctx context.Context, input GetTestByIdInput) (output GetTestByIdOutput, err error)
 }

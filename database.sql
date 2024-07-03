@@ -5,15 +5,8 @@
 -- 3. How you name the fields.
 -- In this assignment we will use PostgreSQL as the database.
 
-CREATE TABLE tree (
-	estate_id UUID PRIMARY KEY,
-	x INT NOT NULL,
-	y INT NOT NULL,
-	height INT NOT NULL,
-);
-
-CREATE TABLE estate (
-	id UUID PRIMARY KEY,
-	height INT NOT NULL,
-	width INT NOT NULL,
+-- This is test table. Remove this table and replace with your own tables. 
+CREATE TABLE test (
+	id serial PRIMARY KEY,
+	name VARCHAR ( 50 ) UNIQUE NOT NULL,
 );
