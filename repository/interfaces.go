@@ -10,7 +10,7 @@ import (
 	m "github.com/SawitProRecruitment/UserService/types"
 )
 
-//go:generate mockgen --build_flags=--mod=mod -destination=interfaces.mock.gen.go -package=repository . RepositoryInterface
+//go:generate mockgen --build_flags=--mod=mod -destination=mock/interfaces.mock.gen.go -package=repository . RepositoryInterface
 type RepositoryInterface interface {
 	GetEstateByID(ctx context.Context, id string) (estate m.Estate, err error)
 	CreateEstate(ctx context.Context, length int, width int) (id string, err error)

@@ -10,7 +10,7 @@ func (u *Usecase) CreateEstate(ctx context.Context, length int, width int) (id s
 		return "", errors.New("length limit exceeded")
 	}
 	if width < 1 || width >= 50000 {
-		return "", errors.New("length limit exceeded")
+		return "", errors.New("width limit exceeded")
 	}
 	return u.Repo.CreateEstate(ctx, length, width)
 }

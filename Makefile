@@ -36,4 +36,4 @@ INTERFACES_GEN_GO_FILES := $(INTERFACES_GO_FILES:%.go=%.mock.gen.go)
 generate_mocks: $(INTERFACES_GEN_GO_FILES)
 $(INTERFACES_GEN_GO_FILES): %.mock.gen.go: %.go
 	@echo "Generating mocks $@ for $<"
-	mockgen -source=$< -destination=$@ -package=$(shell basename $(dir $<))
+	mockgen -source=$< -destination=mock/$@ -package=$(shell basename $(dir $<))

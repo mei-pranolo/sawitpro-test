@@ -6,7 +6,7 @@ import (
 	m "github.com/SawitProRecruitment/UserService/types"
 )
 
-//go:generate mockgen --build_flags=--mod=mod -destination=interfaces.mock.gen.go -package=usecase . UsecaseInterface
+//go:generate mockgen --build_flags=--mod=mod -destination=mock/interfaces.mock.gen.go -package=usecase . UsecaseInterface
 type UsecaseInterface interface {
 	GetEstateByID(ctx context.Context, id string) (estate m.Estate, err error)
 	CreateEstate(ctx context.Context, length int, width int) (id string, err error)

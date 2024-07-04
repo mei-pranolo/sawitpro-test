@@ -45,11 +45,5 @@ func (r *Repository) GetTree(ctx context.Context, estateID string) (trees []m.Tr
 		}
 		trees = append(trees, tree)
 	}
-	// get any error encountered during iteration
-	err = rows.Err()
-	if err != nil {
-		return
-	}
-
 	return
 }

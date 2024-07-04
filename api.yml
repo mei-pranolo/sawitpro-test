@@ -119,14 +119,6 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
-    HelloResponse:
-      type: object
-      required:
-        - message
-      properties:
-        message:
-          type: string
-          example: Hello, World!
     ErrorResponse:
       type: object
       required:
