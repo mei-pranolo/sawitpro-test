@@ -3,9 +3,10 @@ package main
 import (
 	"os"
 
+	"github.com/SawitProRecruitment/UserService/delivery"
 	"github.com/SawitProRecruitment/UserService/generated"
-	"github.com/SawitProRecruitment/UserService/handler"
 	"github.com/SawitProRecruitment/UserService/repository"
+	"github.com/SawitProRecruitment/UserService/usecase"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -21,13 +22,15 @@ func main() {
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
-func newServer() *handler.Server {
+func newServer() *delivery.Server {
 	dbDsn := os.Getenv("DATABASE_URL")
 	var repo repository.RepositoryInterface = repository.NewRepository(repository.NewRepositoryOptions{
 		Dsn: dbDsn,
 	})
-	opts := handler.NewServerOptions{
-		Repository: repo,
+
+	var usecase usecase.UsecaseInterface = usecase.NewUsecase(repo)
+	opts := delivery.NewServerOptions{
+		Usecase: usecase,
 	}
-	return handler.NewServer(opts)
+	return delivery.NewServer(opts)
 }

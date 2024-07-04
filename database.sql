@@ -5,8 +5,17 @@
 -- 3. How you name the fields.
 -- In this assignment we will use PostgreSQL as the database.
 
--- This is test table. Remove this table and replace with your own tables. 
-CREATE TABLE test (
-	id serial PRIMARY KEY,
-	name VARCHAR ( 50 ) UNIQUE NOT NULL,
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE estate (
+	id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+	length INT NOT NULL,
+	width INT NOT NULL
+);
+
+CREATE TABLE tree (
+	estate_id UUID NOT NULL,
+	x INT NOT NULL,
+	y INT NOT NULL,
+	height INT NOT NULL
 );

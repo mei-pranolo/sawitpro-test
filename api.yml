@@ -17,22 +17,100 @@ info:
 servers:
   - url: http://localhost
 paths:
-  /hello:
-    get:
-      summary: This is just a test endpoint to get you started.
-      parameters:
-        - name: id
-          in: query
-          required: true
-          schema:
-            type: integer
+  /estate:
+    post:
+      summary: This endpoint creates and stores new estate in the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstateParameter'
       responses:
         '200':
-          description: Test return
+          description: estate created
           content:
             application/json:    
               schema:
-                $ref: "#/components/schemas/HelloResponse"
+                $ref: "#/components/schemas/CreateResponse"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /estate/{id}/tree:
+    post:
+      summary: This endpoint stores tree data in a given estate with the ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TreeParameter'
+      parameters:
+        - name: id
+          in: path
+          description: Estate ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: tree created
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/CreateResponse"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /estate/{id}/stats:
+    get:
+      summary: This endpoint will simply return the stats of the tree in the estate with ID <id> The stats contains the count of the trees, max height of the trees if any, min height of the trees if any, median height of the trees in that estate if any. If the estate has no tree, return 0 for all values.
+      parameters:
+        - name: id
+          in: path
+          description: Estate ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: stats return
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/EstateStats"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /estate/{id}/drone-plan:
+    get:
+      summary: This endpoint will simply return the sum distance of the drone monitoring travel in the estate with ID
+      parameters:
+        - name: id
+          in: path
+          description: Estate ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: distance return
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/DroneDistance"
         '404':
           description: Not found
           content:
@@ -56,3 +134,57 @@ components:
       properties:
         message:
           type: string
+    CreateResponse:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          example: aaaaa
+    EstateParameter:
+      type: object
+      required:
+        - length
+        - width
+      properties:
+        length:
+          type: integer
+        width:
+          type: integer
+    TreeParameter:
+      type: object
+      required:
+        - x
+        - y
+        - height
+      properties:
+        x:
+          type: integer
+        y:
+          type: integer
+        height:
+          type: integer
+    EstateStats:
+      type: object
+      required:
+        - count
+        - max
+        - min
+        - median
+      properties:
+        count:
+          type: integer
+        max:
+          type: integer
+        min:
+          type: integer
+        median:
+          type: integer
+    DroneDistance:
+      type: object
+      required:
+        - distance
+      properties:
+        distance:
+          type: integer
